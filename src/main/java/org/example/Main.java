@@ -5,7 +5,6 @@ import org.example.Person.BankStaff;
 import org.example.Person.PoliceOfficer;
 import org.example.Person.Thief;
 
-import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
