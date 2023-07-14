@@ -7,7 +7,7 @@ public class BankStaff extends Person implements PersonInterface {
     private int staffId;
     @Override
     public void introduce() {
-        System.out.println("I am a "+getClass().getSimpleName()+" named " + name + ", " + age + " years old, alias: " + staffId + ".");
+        System.out.println("I am a "+getClass().getSimpleName()+" named " + name + ", " + age + " years old, my staff ID is: " + staffId + ".");
 
     }
 

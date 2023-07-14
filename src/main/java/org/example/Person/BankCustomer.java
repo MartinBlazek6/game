@@ -18,6 +18,6 @@ public class BankCustomer extends Person implements PersonInterface {
 
     @Override
     public void introduce() {
-        System.out.println("I am a " + getClass().getSimpleName() + " named " + name + ", " + age + " years old, alias: " + Id + ".");
+        System.out.println("I am a " + getClass().getSimpleName() + " named " + name + ", " + age + " years old, my ID is: " + Id + ".");
     }
 }

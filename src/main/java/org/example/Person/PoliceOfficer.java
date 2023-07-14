@@ -12,7 +12,7 @@ public class PoliceOfficer extends Person implements PersonInterface {
     }
 
     public void introduce() {
-        System.out.println("I am a "+getClass().getSimpleName()+" named " + name + ", " + age + " years old, alias: " + badgeNumber + ".");
+        System.out.println("I am a "+getClass().getSimpleName()+" named " + name + ", " + age + " years old, badge No.: " + badgeNumber + ".");
     }
 
     public String getId() {
