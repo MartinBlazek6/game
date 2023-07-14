@@ -23,7 +23,7 @@ public class Main {
         List<Integer> badgeNumber = new ArrayList<>(List.of(23123, 65416, 65465, 9846, 654165, 6846, 646541, 686846, 68468, 987498));
         List<Integer> staffIds = new ArrayList<>(List.of(35735, 425242, 65786465, 982746, 786786, 2782777, 578576, 88766, 739227, 78657886));
 
-        List<Person> people = new ArrayList<>();
+        List<PersonInterface> people = new ArrayList<>();
         while (!input.equals("stop")) {
             System.out.print("How manny thieves you want: ");
             input = scanner.nextLine();
@@ -49,7 +49,7 @@ public class Main {
             });
             System.out.println("You entered: " + input);
 
-            System.out.print("How manny police customers you want: ");
+            System.out.print("How manny customers you want: ");
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(IDs.size());
@@ -61,7 +61,7 @@ public class Main {
             });
             System.out.println("You entered: " + input);
 
-            System.out.print("How manny police bank staff you want: ");
+            System.out.print("How manny bank staff you want: ");
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(staffIds.size());
@@ -75,7 +75,12 @@ public class Main {
             input = "stop";
             scanner.close();
         }
-        people.forEach(Person::introduce);
+        for (PersonInterface person : people) {
+            if (person instanceof Person p) {
+                p.introduce();
+            }
+            person.callForHelp();
+        }
 
         // Close the Scanner to release system resources
 //        scanner.close();
