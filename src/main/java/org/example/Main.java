@@ -145,6 +145,10 @@ public class Main {
             System.out.println("Thief: " + returnInstanceOfPerson(attacker).getHP());
 
         }
+        if (returnInstanceOfPerson(attacker).getHP() >= 0 && returnInstanceOfPerson(defender).getHP() >= 0){
+            people.removeAll(List.of(attacker,defender));
+        }
+
         people.remove(returnInstanceOfPerson(defender).getHP() <= 0 ? defender : attacker);
     }
 
