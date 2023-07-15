@@ -12,21 +12,26 @@ import java.util.stream.IntStream;
 
 
 public class Main {
+
+    static List<String> names = List.of("Tom", "Anne", "Bruce", "Kate", "John", "Alice", "John", "Amanda", "Josh", "Sean");
+
+    static List<String> aliases = new ArrayList<>(List.of("Shadow", "BadBoy", "CruelBoi", "25CENT", "IceRectangle", "ANYMEN", "Good Dog"));
+    static List<String> IDs = new ArrayList<>(List.of("EH95D56", "EH65D56", "EH65X56", "EF65D56", "AH65D56", "EH65D77", "EH65D56", "EH65D12", "CS65D56", "EH65D01"));
+    static List<Integer> badgeNumber = new ArrayList<>(List.of(23123, 65416, 65465, 9846, 654165, 6846, 646541, 686846, 68468, 987498));
+    static List<Integer> staffIds = new ArrayList<>(List.of(35735, 425242, 65786465, 982746, 786786, 2782777, 578576, 88766, 739227, 78657886));
+
+    static List<PersonInterface> people = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
         System.out.print("Enter a message: ");
-        List<String> names = List.of("Tom", "Anne", "Bruce", "Kate", "John", "Alice", "John", "Amanda", "Josh", "Sean");
 
-        List<String> aliases = new ArrayList<>(List.of("Shadow", "BadBoy", "CruelBoi", "25CENT", "IceRectangle", "ANYMEN", "Good Dog"));
-        List<String> IDs = new ArrayList<>(List.of("EH95D56", "EH65D56", "EH65X56", "EF65D56", "AH65D56", "EH65D77", "EH65D56", "EH65D12", "CS65D56", "EH65D01"));
-        List<Integer> badgeNumber = new ArrayList<>(List.of(23123, 65416, 65465, 9846, 654165, 6846, 646541, 686846, 68468, 987498));
-        List<Integer> staffIds = new ArrayList<>(List.of(35735, 425242, 65786465, 982746, 786786, 2782777, 578576, 88766, 739227, 78657886));
-
-        List<PersonInterface> people = new ArrayList<>();
         while (!input.equals("stop")) {
+
             System.out.print("How manny thieves you want: ");
             input = scanner.nextLine();
+
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(aliases.size());
                 people.add(new Thief(
@@ -65,7 +70,7 @@ public class Main {
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(staffIds.size());
-                people.add( new BankStaff(
+                people.add(new BankStaff(
                         names.get(new Random().nextInt(names.size())),
                         new Random().nextInt((40 - 20) + 1) + 20,
                         staffIds.get(randomId)));
@@ -74,38 +79,67 @@ public class Main {
             System.out.println("You entered: " + input);
             input = "stop";
             scanner.close();
-        }
-        for (PersonInterface person : people) {
-            if (person instanceof Person p) {
-                p.introduce();
+
+            for (PersonInterface person : people) {
+                if (person instanceof Person p) {
+                    p.introduce();
+                }
+                person.callForHelp();
             }
-            person.callForHelp();
+
+
+            Thief t1 = (Thief) people.stream().filter(p -> p.getClass().equals(Thief.class))
+                    .findFirst()
+                    .get();
+
+            PoliceOfficer p1 = (PoliceOfficer) people.stream().filter(p -> p.getClass().equals(PoliceOfficer.class))
+                    .findFirst()
+                    .get();
+
+            t1.introduce();
+            p1.introduce();
+
+            while (t1.getHP() > 0 && p1.getHP() > 0) {
+                t1.attack(p1);
+                System.out.println("Police: " + p1.getHP());
+
+                p1.attack(t1);
+                System.out.println("Thief: " + t1.getHP());
+
+            }
+            people.remove(t1.getHP() <= 0 ? t1 : p1);
+
+
+            people.stream()
+                    .filter(person -> person instanceof Person)
+                    .map(person -> (Person) person)
+                    .forEach(Person::introduce);
+
+
+//
+//            PoliceOfficer officer = new PoliceOfficer("John", 35, 12345);
+//            Thief thief = new Thief("Tom", 25, "Shadow");
+//            BankCustomer bankCustomer = new BankCustomer("Frank", 40, "EH65D56");
+//            BankStaff bankStaff = new BankStaff("James", 35, 65656);
+//
+//            officer.introduce();
+//            thief.introduce();
+//            bankStaff.introduce();
+//            bankCustomer.introduce();
+//
+//            bankCustomer.attack(thief);
+//            officer.attack(thief);
+//            officer.attack(thief);
+//            officer.attack(thief);
+//
+//            thief.attack(bankCustomer);
+//
+//
+//            officer.arrest(thief);
+//
+//            System.out.println(officer.getHP());
+
         }
-
-        // Close the Scanner to release system resources
-//        scanner.close();
-//
-//        PoliceOfficer officer = new PoliceOfficer("John", 35, 12345);
-//        Thief thief = new Thief("Tom", 25, "Shadow");
-//        BankCustomer bankCustomer = new BankCustomer("Frank", 40, "EH65D56");
-//        BankStaff bankStaff = new BankStaff("James", 35, 65656);
-//
-//        officer.introduce();
-//        thief.introduce();
-//        bankStaff.introduce();
-//        bankCustomer.introduce();
-//
-//        bankCustomer.attack(thief);
-//        officer.attack(thief);
-//        officer.attack(thief);
-//        officer.attack(thief);
-
-//        thief.attack(bankCustomer);
-//
-//
-//        officer.arrest(thief);
-//
-//        System.out.println(officer.getHP());
 
     }
 }
