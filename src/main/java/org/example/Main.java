@@ -90,24 +90,17 @@ public class Main {
 
             Thief t1 = (Thief) people.stream().filter(p -> p.getClass().equals(Thief.class))
                     .findFirst()
-                    .get();
+                    .orElseThrow();
 
             PoliceOfficer p1 = (PoliceOfficer) people.stream().filter(p -> p.getClass().equals(PoliceOfficer.class))
                     .findFirst()
-                    .get();
+                    .orElseThrow();
 
             t1.introduce();
             p1.introduce();
 
-            while (t1.getHP() > 0 && p1.getHP() > 0) {
-                t1.attack(p1);
-                System.out.println("Police: " + p1.getHP());
+            duel(t1,p1);
 
-                p1.attack(t1);
-                System.out.println("Thief: " + t1.getHP());
-
-            }
-            people.remove(t1.getHP() <= 0 ? t1 : p1);
 
 
             people.stream()
@@ -141,5 +134,21 @@ public class Main {
 
         }
 
+    }
+    static void duel(PersonInterface attacker, PersonInterface defender){
+
+        while (returnInstanceOfPerson(attacker).getHP() > 0 && returnInstanceOfPerson(defender).getHP() > 0) {
+            attacker.attack(defender);
+            System.out.println("Police: " + returnInstanceOfPerson(defender).getHP());
+
+            defender.attack(attacker);
+            System.out.println("Thief: " + returnInstanceOfPerson(attacker).getHP());
+
+        }
+        people.remove(returnInstanceOfPerson(defender).getHP() <= 0 ? defender : attacker);
+    }
+
+    static Person returnInstanceOfPerson(PersonInterface object){
+        return object instanceof Person person ? person : null;
     }
 }
