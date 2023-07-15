@@ -29,7 +29,7 @@ public class Main {
 
         while (!input.equals("stop")) {
 
-            System.out.print("How manny thieves you want: ");
+            System.out.print("How manny thieves you want (max = "+aliases.size()+"): ");
             input = scanner.nextLine();
 
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
@@ -42,7 +42,7 @@ public class Main {
             });
             System.out.println("You entered: " + input);
 
-            System.out.print("How manny police officers you want: ");
+            System.out.print("How manny police officers you want (max = "+badgeNumber.size()+"): ");
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(badgeNumber.size());
@@ -54,7 +54,7 @@ public class Main {
             });
             System.out.println("You entered: " + input);
 
-            System.out.print("How manny customers you want: ");
+            System.out.print("How manny customers you want (max = "+IDs.size()+"): ");
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(IDs.size());
@@ -66,7 +66,7 @@ public class Main {
             });
             System.out.println("You entered: " + input);
 
-            System.out.print("How manny bank staff you want: ");
+            System.out.print("How manny bank staff you want (max = "+staffIds.size()+"): ");
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(staffIds.size());
@@ -100,6 +100,12 @@ public class Main {
             p1.introduce();
 
             duel(t1,p1);
+
+            Thief t2 = (Thief) people.stream().filter(p -> p.getClass().equals(Thief.class))
+                    .findFirst()
+                    .orElseThrow();
+
+            duel(t2,p1);
 
 
 
