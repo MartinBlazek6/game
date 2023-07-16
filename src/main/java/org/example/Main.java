@@ -29,7 +29,7 @@ public class Main {
 
         while (!input.equals("stop")) {
 
-            System.out.print("How manny thieves you want (max = "+aliases.size()+"): ");
+            System.out.print("How manny thieves you want (max = " + aliases.size() + "): ");
             input = scanner.nextLine();
 
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
@@ -42,7 +42,7 @@ public class Main {
             });
             System.out.println("You entered: " + input);
 
-            System.out.print("How manny police officers you want (max = "+badgeNumber.size()+"): ");
+            System.out.print("How manny police officers you want (max = " + badgeNumber.size() + "): ");
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(badgeNumber.size());
@@ -54,7 +54,7 @@ public class Main {
             });
             System.out.println("You entered: " + input);
 
-            System.out.print("How manny customers you want (max = "+IDs.size()+"): ");
+            System.out.print("How manny customers you want (max = " + IDs.size() + "): ");
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(IDs.size());
@@ -66,7 +66,7 @@ public class Main {
             });
             System.out.println("You entered: " + input);
 
-            System.out.print("How manny bank staff you want (max = "+staffIds.size()+"): ");
+            System.out.print("How manny bank staff you want (max = " + staffIds.size() + "): ");
             input = scanner.nextLine();
             IntStream.range(0, Integer.parseInt(input)).forEach(i -> {
                 int randomId = new Random().nextInt(staffIds.size());
@@ -99,14 +99,13 @@ public class Main {
             t1.introduce();
             p1.introduce();
 
-            duel(t1,p1);
+            duel(t1, p1);
 
             Thief t2 = (Thief) people.stream().filter(p -> p.getClass().equals(Thief.class))
                     .findFirst()
                     .orElseThrow();
 
-            duel(t2,p1);
-
+            duel(t2, p1);
 
 
             people.stream()
@@ -141,24 +140,25 @@ public class Main {
         }
 
     }
-    static void duel(PersonInterface attacker, PersonInterface defender){
+
+    static void duel(PersonInterface attacker, PersonInterface defender) {
 
         while (returnInstanceOfPerson(attacker).getHP() > 0 && returnInstanceOfPerson(defender).getHP() > 0) {
             attacker.attack(defender);
-            System.out.println("Police: " + returnInstanceOfPerson(defender).getHP());
+            System.out.println(defender.getClass().getSimpleName() + " have HP: " + returnInstanceOfPerson(defender).getHP());
 
             defender.attack(attacker);
-            System.out.println("Thief: " + returnInstanceOfPerson(attacker).getHP());
+            System.out.println(attacker.getClass().getSimpleName() + " have HP: " + returnInstanceOfPerson(attacker).getHP());
 
         }
-        if (returnInstanceOfPerson(attacker).getHP() >= 0 && returnInstanceOfPerson(defender).getHP() >= 0){
-            people.removeAll(List.of(attacker,defender));
+        if (returnInstanceOfPerson(attacker).getHP() >= 0 && returnInstanceOfPerson(defender).getHP() >= 0) {
+            people.removeAll(List.of(attacker, defender));
         }
 
         people.remove(returnInstanceOfPerson(defender).getHP() <= 0 ? defender : attacker);
     }
 
-    static Person returnInstanceOfPerson(PersonInterface object){
+    static Person returnInstanceOfPerson(PersonInterface object) {
         return object instanceof Person person ? person : null;
     }
 }
