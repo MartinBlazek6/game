@@ -72,7 +72,7 @@ class CoffeeMachine {
         coffeeMachine.start();
 
         // Simulating water running out
-        Thread.sleep(9000); // Wait for 5 seconds
+        Thread.sleep(7000); // Wait for 5 seconds
         coffeeMachine.stop();
 
         // Simulating water refill
