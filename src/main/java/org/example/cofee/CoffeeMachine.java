@@ -57,7 +57,7 @@ class CoffeeMachine {
 
 
     static void playSound(String sound){
-        String filePath = "/Users/martinblazek/IdeaProjects/game/src/main/java/org/example/cofee/soundBank/"+sound;
+        String filePath = "src/main/java/org/example/cofee/soundBank/"+sound;
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
             Player player = new Player(fileInputStream);
